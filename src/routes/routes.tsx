@@ -5,9 +5,10 @@ import ErrorPage from "../pages/ErrorPage";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 
-import {  adminRoutes } from "./admin.routes";
+import {  adminPath } from "./admin.routes";
 import { studentPath } from "./student.routes";
 import { facultyPaths } from "./faculty.routes";
+import { routesGenerator } from "../utils/routesGenerator";
 
 const router = createBrowserRouter([
   {
@@ -18,17 +19,17 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <App />,
-    children: adminRoutes,
+    children: routesGenerator(adminPath),
   },
   {
     path: "/faculty",
     element: <App />,
-    children: facultyPaths,
+    children: routesGenerator(facultyPaths),
   },
   {
     path: "/student",
     element: <App />,
-    children: studentPath,
+    children: routesGenerator(studentPath),
   },
   { path: "login", element: <Login /> },
   { path: "register", element: <Register /> },
