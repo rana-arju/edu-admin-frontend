@@ -1,7 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
+export type IUser = {
+  userId: string;
+  role: string;
+  iat: number;
+  exp: number;
+};
 type IAuthState = {
-  user: null | object;
+  user: null | IUser;
   token: null | string;
 };
 const initialState: IAuthState = {
@@ -14,6 +20,8 @@ const authSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<IAuthState>) => {
       const { user, token } = action.payload;
+      console.log(action.payload);
+      
       state.user = user;
       state.token = token;
     },
@@ -24,5 +32,6 @@ const authSlice = createSlice({
   },
 });
 export const { setUser, logout } = authSlice.actions;
-export const useCurrentToekn = (state: RootState) => state.auth.token
+export const useCurrentToekn = (state: RootState) => state.auth.token;
+export const selectCurrentUser = (state: RootState) => state.auth.user;
 export default authSlice.reducer;

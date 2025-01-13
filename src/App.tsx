@@ -4,6 +4,7 @@ import ProtectRoute from "./components/layout/ProtectRoute";
 function App() {
   return (
     <ProtectRoute>
+
       <MainLayout />
     </ProtectRoute>
   );
