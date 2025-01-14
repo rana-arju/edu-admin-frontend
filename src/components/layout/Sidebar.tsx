@@ -13,7 +13,7 @@ const userRole = {
   STUDENT: "student",
 };
 function Sidebar() {
-  const user = useAppSelector(selectCurrentUser)
+  const user = useAppSelector(selectCurrentUser);
   const role = user?.role;
   let sidebarItems;
   switch (role) {
@@ -28,7 +28,11 @@ function Sidebar() {
       break;
   }
   return (
-    <Sider breakpoint="lg" collapsedWidth="0">
+    <Sider
+      breakpoint="lg"
+      collapsedWidth="0"
+      style={{ height: "100vh", position: "sticky", top: "0", left: "0" }}
+    >
       <NavLink
         to={"/"}
         style={{

@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Row } from "antd";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/hook";
 import { IUser, setUser } from "../../redux/features/auth/authSlice";
@@ -7,13 +7,17 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import EduForm from "../../components/form/EduForm";
 import EduInput from "../../components/form/EduInput";
+import { FieldValues } from "react-hook-form";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [login] = useLoginMutation();
-
-  const onFinish = async (values) => {
+const defaultValues = {
+  id: "A-0001",
+  password: "admin123"
+}
+  const onSubmit = async (values: FieldValues) => {
     const userInfo = {
       id: values.id,
       password: values.password,
@@ -26,19 +30,15 @@ function Login() {
   };
 
   return (
-    <div className="flex">
-      <EduForm onSubmit={onsubmit}>
-        <label htmlFor="id">Id</label>
-        <EduInput name="id" type="text" />  
-        
-         <label htmlFor="password">Password</label>
-        <EduInput name="password" type="password" />
+    <Row justify="center" align="middle" style={{ height: "100vh" }}>
+      <EduForm onSubmit={onSubmit} defaultValues={defaultValues}>
+        <EduInput name="id" type="text" label="Id" />
 
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
+        <EduInput name="password" type="password" label="Password" />
+
+        <Button htmlType="submit">Submit</Button>
       </EduForm>
-    </div>
+    </Row>
   );
 }
 
