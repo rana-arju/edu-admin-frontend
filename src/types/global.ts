@@ -30,4 +30,8 @@ export type ISingleResponse = {
   }
   error?: IError
 }
-export type IResponseRedux<T> = IResponse<T> & BaseQueryApi
+export type IResponseRedux<T> = IResponse<T> & BaseQueryApi;
+export type IQueryParam = {
+  name: string,
+  value: boolean | React.Key
+}

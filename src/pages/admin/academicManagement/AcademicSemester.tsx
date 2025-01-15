@@ -2,10 +2,12 @@ import { Table } from "antd";
 import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import type { TableColumnsType, TableProps } from "antd";
 import { IAcademicSemester } from "../../../types/academicManagement.type";
+import { useState } from "react";
+import { IQueryParam } from "../../../types";
 
 type ITableData = Pick<
   IAcademicSemester,
-  "_id" | "code" | "endMonth" | "startMonth" | "name" | "year"
+  "_id" | "endMonth" | "startMonth" | "name" | "year"
 >;
 const columns: TableColumnsType<ITableData> = [
   {
@@ -14,26 +16,16 @@ const columns: TableColumnsType<ITableData> = [
     showSorterTooltip: { target: "full-header" },
     filters: [
       {
-        text: "Joe",
-        value: "Joe",
+        text: "Autumn",
+        value: "Autumn",
       },
       {
-        text: "Jim",
-        value: "Jim",
+        text: "Summer",
+        value: "Summer",
       },
       {
-        text: "Submenu",
-        value: "Submenu",
-        children: [
-          {
-            text: "Green",
-            value: "Green",
-          },
-          {
-            text: "Black",
-            value: "Black",
-          },
-        ],
+        text: "Fall",
+        value: "Fall",
       },
     ],
 
@@ -41,12 +33,7 @@ const columns: TableColumnsType<ITableData> = [
     sorter: (a, b) => a.name.length - b.name.length,
     sortDirections: ["descend"],
   },
-  {
-    title: "Code",
-    dataIndex: "code",
-    defaultSortOrder: "descend",
-    //sorter: (a, b) => a.code - b.code,
-  },
+
   {
     title: "Year",
     dataIndex: "year",
@@ -88,8 +75,10 @@ const columns: TableColumnsType<ITableData> = [
 ];
 
 function AcademicSemester() {
-  const { data: semesterData } = useGetAllSemestersQuery(undefined);
-  console.log(semesterData);
+  const [params, setParams] = useState<IQueryParam[] | undefined>([]);
+  const { data: semesterData,  isFetching } = useGetAllSemestersQuery(params);
+
+  
   const tableData = semesterData?.data?.map(
     ({
       _id,
@@ -112,15 +101,24 @@ function AcademicSemester() {
     })
   );
   const onChange: TableProps<ITableData>["onChange"] = (
-    pagination,
+    _pagination,
     filters,
-    sorter,
+    _sorter,
     extra
   ) => {
-    console.log("params", pagination, filters, sorter, extra);
+    if (extra.action === "filter") {
+      const queryParams: IQueryParam[] = [];
+      filters.name?.forEach((item) =>
+        queryParams.push({ name: "name", value: item })
+      )
+      setParams(queryParams)
+      
+    }
   };
+
   return (
     <Table<ITableData>
+      loading = {isFetching}
       columns={columns}
       dataSource={tableData}
       onChange={onChange}
