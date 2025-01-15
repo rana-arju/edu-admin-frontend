@@ -5,11 +5,16 @@ import EduSelect from "../../../components/form/EduSelect";
 import { semesterName, yearOption } from "../../../constant/semester";
 import { monthOption } from "../../../constant/global";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { academicSemesterSchema } from "../../../schema/academicManagementSchema";
+import { toast } from "sonner";
+import { useCreateSemesterMutation } from "../../../redux/features/admin/academicManagement.api";
+import {  ISingleResponse } from "../../../types/global";
 
 function CreateAcademicSemester() {
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const [createSemester] = useCreateSemesterMutation();
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Creating new semester ....");
+
     const name = semesterName[Number(data?.semester) - 1]?.label;
     const semesterData = {
       name,
@@ -18,6 +23,20 @@ function CreateAcademicSemester() {
       startMonth: data.startMonth,
       endMonth: data.endMonth,
     };
+
+    try {
+      // toast.loading("Creating new semester ....");
+      const res = (await createSemester(semesterData)) as ISingleResponse;
+      console.log(res);
+
+      if (res.error) {
+        toast.error(res.error.data.message, { id: toastId });
+      } else {
+        toast.success(res?.data?.message, { id: toastId });
+      }
+    } catch (error) {
+      toast.error("Something went wrong!", { id: toastId });
+    }
   };
 
   return (
