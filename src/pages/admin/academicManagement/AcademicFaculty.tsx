@@ -3,7 +3,7 @@ import { useGetAllAcademicFacultyQuery } from "../../../redux/features/admin/aca
 import type { TableColumnsType, TableProps } from "antd";
 import { IAcademicFaculty } from "../../../types/academicManagement.type";
 
-type ITableData = Pick<IAcademicFaculty,  "name">;
+type ITableData = Pick<IAcademicFaculty, "name">;
 const columns: TableColumnsType<ITableData> = [
   {
     title: "Faculty Name",
@@ -32,14 +32,10 @@ function AcademicFaculty() {
   const { data: faculties, isFetching } =
     useGetAllAcademicFacultyQuery(undefined);
 
-  const tableData = faculties?.data?.map(
-    ({ _id, name, createdAt, updatedAt }) => ({
-      key: _id,
-      name,
-      createdAt,
-      updatedAt,
-    })
-  );
+  const tableData = faculties?.data?.map(({ _id, name }) => ({
+    key: _id,
+    name,
+  }));
   const onChange: TableProps<ITableData>["onChange"] = (
     _pagination,
     _filters,

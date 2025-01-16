@@ -48,12 +48,14 @@ function Sidebar() {
         <span style={{ color: "white" }}>Edu</span>
         <span style={{ color: "#1677FF" }}> admin</span>
       </NavLink>
-      <Menu
-        theme="dark"
-        mode="inline"
-        defaultSelectedKeys={["4"]}
-        items={sidebarItems}
-      />
+      <div style={{ overflowY: "auto", marginBottom: "20px" }}>
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={["4"]}
+          items={sidebarItems}
+        />
+      </div>
     </Sider>
   );
 }

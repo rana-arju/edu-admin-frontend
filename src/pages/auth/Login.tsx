@@ -32,9 +32,9 @@ const defaultValues = {
   return (
     <Row justify="center" align="middle" style={{ height: "100vh" }}>
       <EduForm onSubmit={onSubmit} defaultValues={defaultValues}>
-        <EduInput name="id" type="text" label="Id" />
+        <EduInput name="id" type="text" label="Id" placeholder="Enter user id" />
 
-        <EduInput name="password" type="password" label="Password" />
+        <EduInput name="password" type="password" label="Password" placeholder="Enter your password" />
 
         <Button htmlType="submit">Submit</Button>
       </EduForm>
