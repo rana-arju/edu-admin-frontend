@@ -7,6 +7,7 @@ type ISelectProps = {
   options: { value: string; label: string }[];
 };
 function EduSelect({ label, placeholder, name, options }: ISelectProps) {
+  
 
   return (
     <Controller
@@ -15,7 +16,9 @@ function EduSelect({ label, placeholder, name, options }: ISelectProps) {
         <Form.Item label={label}>
           <Select
             {...field}
-            defaultValue={options[0].value}
+            
+          defaultValue={options[0].value}
+            
             style={{ width: "100%" }}
             allowClear
             options={options}

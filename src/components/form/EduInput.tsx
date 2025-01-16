@@ -11,7 +11,7 @@ function EduInput({ name, type, label, placeholder }: IInputProps) {
     <div style={{ marginBottom: "10px" }}>
       <Controller
         name={name}
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <Form.Item label={label}>
             <Input
               type={type}
@@ -20,6 +20,7 @@ function EduInput({ name, type, label, placeholder }: IInputProps) {
               size="large"
               placeholder={placeholder}
             />
+            {error && <p style={{ color: "red" }}>{error.message}</p>}
           </Form.Item>
         )}
       />

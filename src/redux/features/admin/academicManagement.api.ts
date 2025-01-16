@@ -1,5 +1,5 @@
 import { IQueryParam, IResponseRedux } from "../../../types";
-import { IAcademicSemester } from "../../../types/academicManagement.type";
+import { IAcademicFaculty, IAcademicSemester } from "../../../types/academicManagement.type";
 import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({
@@ -40,8 +40,35 @@ const academicManagementApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    getAllAcademicFaculty: builder.query({
+      query: () => {
+        return {
+          url: "/academic-faculty/get-academic-faculty",
+          method: "GET",
+        };
+      },
+      transformResponse: (response: IResponseRedux<IAcademicFaculty[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
+    createAcademicDepartment: builder.mutation({
+      query: (body) => ({
+        url: "/academic-department/create-academic-department",
+        method: "POST",
+        body,
+      }),
+    }),
+    getAllAcademicDepartment: builder.query({
+      query: () => ({
+        url: "/academic-department/get-academic-department",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllSemestersQuery, useCreateSemesterMutation, useCreateAcademicFacultyMutation } =
+export const { useGetAllSemestersQuery, useCreateSemesterMutation, useCreateAcademicFacultyMutation, useGetAllAcademicFacultyQuery , useCreateAcademicDepartmentMutation} =
   academicManagementApi;

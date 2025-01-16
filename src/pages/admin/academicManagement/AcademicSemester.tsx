@@ -7,7 +7,7 @@ import { IQueryParam } from "../../../types";
 
 type ITableData = Pick<
   IAcademicSemester,
-  "_id" | "endMonth" | "startMonth" | "name" | "year"
+   "endMonth" | "startMonth" | "name" | "year"
 >;
 const columns: TableColumnsType<ITableData> = [
   {
@@ -43,34 +43,11 @@ const columns: TableColumnsType<ITableData> = [
   {
     title: "Start Month",
     dataIndex: "startMonth",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    onFilter: (value, record) =>
-      record.startMonth.indexOf(value as string) === 0,
+ 
   },
   {
     title: "End Month",
     dataIndex: "endMonth",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    onFilter: (value, record) =>
-      record.startMonth.indexOf(value as string) === 0,
   },
   {
     title: "Actions",
@@ -100,7 +77,7 @@ function AcademicSemester() {
       updatedAt,
       code,
     }) => ({
-      _id,
+      key: _id,
       name,
       startMonth,
       endMonth,

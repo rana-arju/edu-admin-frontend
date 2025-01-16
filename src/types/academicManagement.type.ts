@@ -7,4 +7,12 @@ export type IAcademicSemester = {
   endMonth: string;
   createdAt: string;
   updatedAt: string;
+  __v: number;
+};
+export type IAcademicFaculty = {
+  _id: string;
+  name:string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 };
