@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import type { TableColumnsType, TableProps } from "antd";
 import { IAcademicSemester } from "../../../types/academicManagement.type";
@@ -72,13 +72,23 @@ const columns: TableColumnsType<ITableData> = [
     onFilter: (value, record) =>
       record.startMonth.indexOf(value as string) === 0,
   },
+  {
+    title: "Actions",
+    dataIndex: "X",
+    render: () => {
+      return (
+        <div>
+          <Button>Update</Button>
+        </div>
+      );
+    },
+  },
 ];
 
 function AcademicSemester() {
   const [params, setParams] = useState<IQueryParam[] | undefined>([]);
-  const { data: semesterData,  isFetching } = useGetAllSemestersQuery(params);
+  const { data: semesterData, isFetching } = useGetAllSemestersQuery(params);
 
-  
   const tableData = semesterData?.data?.map(
     ({
       _id,
@@ -110,15 +120,14 @@ function AcademicSemester() {
       const queryParams: IQueryParam[] = [];
       filters.name?.forEach((item) =>
         queryParams.push({ name: "name", value: item })
-      )
-      setParams(queryParams)
-      
+      );
+      setParams(queryParams);
     }
   };
 
   return (
     <Table<ITableData>
-      loading = {isFetching}
+      loading={isFetching}
       columns={columns}
       dataSource={tableData}
       onChange={onChange}
