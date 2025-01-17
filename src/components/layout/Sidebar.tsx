@@ -53,7 +53,7 @@ function Sidebar() {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          items={sidebarItems}
+          items ={sidebarItems}
         />
       </div>
     </Sider>

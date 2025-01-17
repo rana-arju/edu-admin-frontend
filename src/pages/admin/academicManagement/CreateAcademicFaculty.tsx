@@ -11,7 +11,6 @@ import EduInput from "../../../components/form/EduInput";
 function CreateAcademicFaculty() {
   const [createAcademicFaculty] = useCreateAcademicFacultyMutation();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
     
     const toastId = toast.loading("Creating new faculty ....");
 
@@ -33,7 +32,7 @@ function CreateAcademicFaculty() {
 
   return (
     <Flex justify="center" align="middle">
-      <Col span={6}>
+      <Col span={12}>
         <EduForm
           onSubmit={onSubmit}
           resolver={zodResolver(academicFacultySchema)}

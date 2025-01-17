@@ -7,7 +7,7 @@ import { IQueryParam } from "../../../types";
 
 type ITableData = Pick<
   IAcademicSemester,
-   "endMonth" | "startMonth" | "name" | "year"
+  "endMonth" | "startMonth" | "name" | "year"
 >;
 const columns: TableColumnsType<ITableData> = [
   {
@@ -43,7 +43,6 @@ const columns: TableColumnsType<ITableData> = [
   {
     title: "Start Month",
     dataIndex: "startMonth",
- 
   },
   {
     title: "End Month",

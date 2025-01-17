@@ -5,9 +5,12 @@ import CreateAcademicDepartment from "../pages/admin/academicManagement/CreateAc
 import CreateAcademicFaculty from "../pages/admin/academicManagement/CreateAcademicFaculty";
 import CreateAcademicSemester from "../pages/admin/academicManagement/CreateAcademicSemester";
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import CreateAdmin from "../pages/admin/CreateAdmin";
-import CreateFaculty from "../pages/admin/CreateFaculty";
-import CreateStudent from "../pages/admin/CreateStudent";
+import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
+import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
+
+import CreateStudent from "../pages/admin/userManagement/CreateStudent";
+import StudentDataTable from "../pages/admin/userManagement/StudentDataTable";
+import StudentDetails from "../pages/admin/userManagement/StudentDetails";
 
 export const adminPath = [
   {
@@ -59,6 +62,15 @@ export const adminPath = [
         name: "Create Student",
         path: "create-student",
         element: <CreateStudent />,
+      },
+      {
+        name: "All Student",
+        path: "student-data",
+        element: <StudentDataTable />,
+      },
+      {
+        path: "student-data/:studentId",
+        element: <StudentDetails />,
       },
       {
         name: "Create Faculty",

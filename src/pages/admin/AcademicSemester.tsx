@@ -2,7 +2,6 @@ import { useGetAllSemestersQuery } from "../../redux/features/admin/academicMana
 
 function AcademicSemester() {
   const { data } = useGetAllSemestersQuery(undefined);
-  console.log(data);
 
   return (
     <div>

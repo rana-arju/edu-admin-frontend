@@ -52,7 +52,7 @@ function CreateAcademicDepartment() {
 
   return (
     <Flex justify="center" align="middle">
-      <Col span={6}>
+      <Col span={12}>
         <EduForm
           onSubmit={onSubmit}
           resolver={zodResolver(academicDepartmentSchema)}

@@ -5,7 +5,7 @@ export type IUserPaths = {
   path?: string;
   element?: ReactNode;
   children?: IUserPaths[];
-};
+} ;
 
 export type IRoute = {
   path: string;
@@ -15,4 +15,4 @@ export type ISidebarItem = {
   key: string;
   label: ReactNode;
   children?: ISidebarItem[];
-};
+} | undefined;

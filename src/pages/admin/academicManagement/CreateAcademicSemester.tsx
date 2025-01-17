@@ -27,7 +27,6 @@ function CreateAcademicSemester() {
     try {
       // toast.loading("Creating new semester ....");
       const res = (await createSemester(semesterData)) as ISingleResponse;
-      console.log(res);
 
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
@@ -41,7 +40,7 @@ function CreateAcademicSemester() {
 
   return (
     <Flex justify="center" align="middle">
-      <Col span={6}>
+      <Col span={12}>
         <EduForm
           onSubmit={onSubmit}
           resolver={zodResolver(academicSemesterSchema)}

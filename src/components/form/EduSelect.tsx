@@ -4,30 +4,32 @@ type ISelectProps = {
   label: string;
   placeholder: string;
   name: string;
-  options: { value: string; label: string }[];
+  disabled?: boolean;
+  options: { value: string; label: string }[] | undefined;
 };
-function EduSelect({ label, placeholder, name, options }: ISelectProps) {
-  
-
+function EduSelect({
+  label,
+  placeholder,
+  name,
+  options,
+  disabled,
+}: ISelectProps) {
   return (
     <Controller
       name={name}
-      render={({ field, fieldState: {error} }) => (
+      render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
+            disabled={disabled}
             {...field}
-            
-          defaultValue={options[0].value}
-            
+            defaultValue={options ? options[0].value : undefined}
             style={{ width: "100%" }}
             allowClear
             options={options}
             placeholder={placeholder}
             size="large"
           />
-        {
-          error && <p style={{color: "red"}}>{error.message}</p>
-        }
+          {error && <p style={{ color: "red" }}>{error.message}</p>}
         </Form.Item>
       )}
     />
