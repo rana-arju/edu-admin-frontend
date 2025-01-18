@@ -12,6 +12,7 @@ import {
   ExportOutlined,
   ThunderboltOutlined,
 } from "@ant-design/icons";
+import { AdminActions } from "../../../components/actions/AdminActions";
 
 type ITableData = Pick<
   IFaculty,
@@ -44,78 +45,13 @@ const columns: TableColumnsType<ITableData> = [
   {
     title: "Actions",
     key: "x",
-    render: (item) => <FacultyActions item={item} />,
+    render: (item) =>  <AdminActions item={item} url ={`/admin/faculty-details/${item?.key}`} /> ,
     width: "1%",
   },
 ];
 
-type FacultyActionsProps = {
-  item: {
-    contactNo: string;
-    email: string;
-    fullName: string;
-    id: string;
-    key: string;
-    status: string;
-  } & IFaculty;
-};
 
-const FacultyActions = ({ item }: FacultyActionsProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [status, setStatus] = useState(item?.user?.status);
-  const [statusUpdate] = useStatusUpdateMutation();
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-    statusUpdate({ data: status, id: item?.user?._id });
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-  const handleChange = (value: string) => {
-    setStatus(value);
-  };
-
-  return (
-    <Space>
-      <Link to={`/admin/faculty-details/${item?.key}`}>
-        <Button>
-          <ExportOutlined />
-        </Button>
-      </Link>
-      <Button>
-        <EditTwoTone />
-      </Button>
-      <Button onClick={showModal}>
-        <ThunderboltOutlined />
-      </Button>
-      <Modal
-        title={`Status:  ${item.status}`}
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <p>Want to Change Status?</p>
-        <Select
-          defaultValue={item.status}
-          onChange={handleChange}
-          style={{ width: 120 }}
-          allowClear
-          options={[
-            { value: "in-progress", label: "In Progress" },
-            { value: "blocked", label: "Blocked" },
-          ]}
-          placeholder="Select status"
-        />
-      </Modal>
-    </Space>
-  );
-};
 
 function FacultyDataTable() {
   const [params, setParams] = useState<IQueryParam[]>([]);

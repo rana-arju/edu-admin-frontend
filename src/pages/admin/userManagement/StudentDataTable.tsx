@@ -3,14 +3,13 @@ import type { TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { IQueryParam, IStudent } from "../../../types";
 import { useGetAllStudentQuery } from "../../../redux/features/admin/userManagement.api";
-import { Link } from "react-router-dom";
-import {
-  EditTwoTone,
-  ExportOutlined,
-  RotateRightOutlined,
-} from "@ant-design/icons";
 
-type ITableData = Pick<IStudent, "fullName" | "id" | "email" | "contactNo">;
+import { AdminActions } from "../../../components/actions/AdminActions";
+
+type ITableData = Pick<
+  IStudent,
+  "fullName" | "id" | "email" | "contactNo" | "user"
+>;
 const columns: TableColumnsType<ITableData> = [
   {
     title: "Student Name",
@@ -38,23 +37,9 @@ const columns: TableColumnsType<ITableData> = [
   {
     title: "Actions",
     key: "x",
-    render: (item) => {
-      return (
-        <Space>
-          <Link to={`/admin/student-data/${item?.key}`}>
-            <Button>
-              <ExportOutlined />
-            </Button>
-          </Link>
-          <Button>
-            <EditTwoTone />
-          </Button>
-          <Button>
-            <RotateRightOutlined />
-          </Button>
-        </Space>
-      );
-    },
+    render: (item) => (
+      <AdminActions item={item} url={`/admin/student-details/${item?.key}`} />
+    ),
     width: "1%",
   },
 ];
@@ -70,12 +55,14 @@ function StudentDataTable() {
   ]);
   const studentMeta = studentData?.meta;
   const tableData = studentData?.data?.map(
-    ({ _id, fullName, id, email, contactNo }) => ({
+    ({ _id, fullName, id, email, contactNo, user }) => ({
       key: _id,
       fullName,
       id,
       email,
       contactNo,
+      user,
+      status: user?.status,
     })
   );
   const onChange: TableProps<ITableData>["onChange"] = (
@@ -102,14 +89,13 @@ function StudentDataTable() {
         onChange={onChange}
         pagination={false}
       />
-      <div style={{marginTop: "20px"}}>
-
-      <Pagination
-        current={page}
-        pageSize={studentMeta?.limit}
-        total={studentMeta?.total}
-        onChange={(value) => setPage(value)}
-      />
+      <div style={{ marginTop: "20px" }}>
+        <Pagination
+          current={page}
+          pageSize={studentMeta?.limit}
+          total={studentMeta?.total}
+          onChange={(value) => setPage(value)}
+        />
       </div>
     </>
   );

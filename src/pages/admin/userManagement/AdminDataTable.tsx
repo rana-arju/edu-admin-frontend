@@ -1,14 +1,16 @@
-import { Button, Pagination, Space, Table } from "antd";
+import { Button, Modal, Pagination, Select, Space, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { IAdmin, IQueryParam } from "../../../types";
 import { Link } from "react-router-dom";
 import {
   useGetAllAdminQuery,
-  useGetAllFacultyQuery,
+  useStatusUpdateMutation,
 } from "../../../redux/features/admin/userManagement.api";
+import { EditTwoTone, ExportOutlined, ThunderboltOutlined } from "@ant-design/icons";
+import { AdminActions } from "../../../components/actions/AdminActions";
 
-type ITableData = Pick<IAdmin, "fullName" | "id" | "email" | "contactNo">;
+type ITableData = Pick<IAdmin, "fullName" | "id" | "email" | "contactNo" | "user">;
 const columns: TableColumnsType<ITableData> = [
   {
     title: "Admin Name",
@@ -36,17 +38,7 @@ const columns: TableColumnsType<ITableData> = [
   {
     title: "Actions",
     key: "x",
-    render: (item) => {
-      return (
-        <Space>
-          <Link to={`/admin/admin-details/${item?.key}`}>
-            <Button>Details</Button>
-          </Link>
-          <Button>Update</Button>
-          <Button>Block</Button>
-        </Space>
-      );
-    },
+    render: (item) => <AdminActions item={item} url ={`/admin/admin-details/${item?.key}`} />,
     width: "1%",
   },
 ];
@@ -62,12 +54,14 @@ function AdminDataTable() {
   ]);
   const adminMeta = adminData?.meta;
   const tableData = adminData?.data?.map(
-    ({ _id, fullName, id, email, contactNo }) => ({
+    ({ _id, fullName, id, email, contactNo, user }) => ({
       key: _id,
       fullName,
       id,
       email,
       contactNo,
+      status: user.status,
+      user
     })
   );
   const onChange: TableProps<ITableData>["onChange"] = (
