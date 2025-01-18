@@ -1,7 +1,7 @@
 import { IAcademicDepartment, IAcademicFaculty, IAcademicSemester } from "./academicManagement.type";
 
 
-export interface IStudent {
+export type IStudent = {
   _id: string;
   id: string;
   user: IUser;
@@ -24,7 +24,7 @@ export interface IStudent {
   fullName: string;
 }
 
-export interface IUser {
+export type IUser = {
   _id: string;
   id: string;
   email: string;
@@ -37,14 +37,14 @@ export interface IUser {
   __v: number;
 }
 
-interface IName {
+type IName = {
   firstName: string;
   lastName: string;
   middleName: string;
   _id: string;
 }
 
-export interface IGuardian {
+export  type IGuardian = {
   fatherName: string;
   fatherOccupation: string;
   fatherContactNo: string;
@@ -53,17 +53,17 @@ export interface IGuardian {
   _id: string;
 }
 
-export interface ILocalGuardian {
+export type ILocalGuardian = {
   name: string;
   occupation: string;
   contactNo: string;
   address: string;
   _id: string;
 }
-export interface IFaculty {
+export type IFaculty = {
   _id: string;
   id: string;
-  user: string;
+  user: IUser;
   designation: string;
   name: IName;
   gender: string;
@@ -82,7 +82,7 @@ export interface IFaculty {
 }
 
 
-export interface IAdmin {
+export type IAdmin = {
   _id: string;
   id: string;
   user: IUser;

@@ -4,6 +4,11 @@ import { useState } from "react";
 import { IQueryParam, IStudent } from "../../../types";
 import { useGetAllStudentQuery } from "../../../redux/features/admin/userManagement.api";
 import { Link } from "react-router-dom";
+import {
+  EditTwoTone,
+  ExportOutlined,
+  RotateRightOutlined,
+} from "@ant-design/icons";
 
 type ITableData = Pick<IStudent, "fullName" | "id" | "email" | "contactNo">;
 const columns: TableColumnsType<ITableData> = [
@@ -34,15 +39,19 @@ const columns: TableColumnsType<ITableData> = [
     title: "Actions",
     key: "x",
     render: (item) => {
-      
       return (
         <Space>
           <Link to={`/admin/student-data/${item?.key}`}>
-          
-          <Button>Details</Button>
+            <Button>
+              <ExportOutlined />
+            </Button>
           </Link>
-          <Button>Update</Button>
-          <Button>Block</Button>
+          <Button>
+            <EditTwoTone />
+          </Button>
+          <Button>
+            <RotateRightOutlined />
+          </Button>
         </Space>
       );
     },
@@ -93,12 +102,15 @@ function StudentDataTable() {
         onChange={onChange}
         pagination={false}
       />
+      <div style={{marginTop: "20px"}}>
+
       <Pagination
         current={page}
         pageSize={studentMeta?.limit}
         total={studentMeta?.total}
         onChange={(value) => setPage(value)}
       />
+      </div>
     </>
   );
 }

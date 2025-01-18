@@ -1,10 +1,19 @@
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
+import { useGetSingleStudentQuery } from "../../../redux/features/admin/userManagement.api";
 
 function StudentDetails() {
-    const param = useParams();
-    
-    
-  return <div>StudentDetails of ====  {param.studentId}</div>;
+  const param = useParams();
+  const {
+    data: student,
+    isFetching,
+    isLoading,
+  } = useGetSingleStudentQuery(param.studentId);
+  if (isFetching || isLoading) {
+    return <p>Loading...</p>;
+  }
+  console.log(student);
+
+  return <div>StudentDetails of ==== {student.data.fullName}</div>;
 }
 
-export default StudentDetails
+export default StudentDetails;

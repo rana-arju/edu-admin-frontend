@@ -11,6 +11,14 @@ const userManagementApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+    getSingleStudent: builder.query({
+      query: (args) => {
+        return {
+          url: `/students/${args}`,
+          method: "GET",
+        };
+      },
+    }),
     getAllStudent: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -67,6 +75,17 @@ const userManagementApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+    statusUpdate: builder.mutation({
+      query: (body) => {
+        console.log(body);
+
+        return {
+          url: `/users/change-status/${body.id}`,
+          method: "POST",
+          body: {status: body.data},
+        };
+      },
+    }),
     getAllAdmin: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -91,5 +110,13 @@ const userManagementApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateStudentMutation, useGetAllStudentQuery, useCreateAdminMutation, useCreateFacultyMutation, useGetAllFacultyQuery, useGetAllAdminQuery } =
-  userManagementApi;
+export const {
+  useCreateStudentMutation,
+  useGetAllStudentQuery,
+  useCreateAdminMutation,
+  useCreateFacultyMutation,
+  useGetAllFacultyQuery,
+  useGetAllAdminQuery,
+  useGetSingleStudentQuery,
+  useStatusUpdateMutation,
+} = userManagementApi;

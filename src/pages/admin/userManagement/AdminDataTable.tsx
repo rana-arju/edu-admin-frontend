@@ -1,9 +1,12 @@
 import { Button, Pagination, Space, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
-import { IAdmin,  IQueryParam } from "../../../types";
+import { IAdmin, IQueryParam } from "../../../types";
 import { Link } from "react-router-dom";
-import { useGetAllAdminQuery, useGetAllFacultyQuery } from "../../../redux/features/admin/userManagement.api";
+import {
+  useGetAllAdminQuery,
+  useGetAllFacultyQuery,
+} from "../../../redux/features/admin/userManagement.api";
 
 type ITableData = Pick<IAdmin, "fullName" | "id" | "email" | "contactNo">;
 const columns: TableColumnsType<ITableData> = [
@@ -91,12 +94,14 @@ function AdminDataTable() {
         onChange={onChange}
         pagination={false}
       />
-      <Pagination
-        current={page}
-        pageSize={adminMeta?.limit}
-        total={adminMeta?.total}
-        onChange={(value) => setPage(value)}
-      />
+      <div style={{ marginTop: "20px" }}>
+        <Pagination
+          current={page}
+          pageSize={adminMeta?.limit}
+          total={adminMeta?.total}
+          onChange={(value) => setPage(value)}
+        />
+      </div>
     </>
   );
 }
