@@ -22,7 +22,7 @@ const userManagementApi = baseApi.injectEndpoints({
         return {
           url: "/students",
           method: "GET",
-          params
+          params,
         };
       },
       transformResponse: (response: IResponseRedux<IStudent[]>) => {
@@ -32,8 +32,22 @@ const userManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
+    createFaculty: builder.mutation({
+      query: (body) => ({
+        url: "/users/create-faculty",
+        method: "POST",
+        body,
+      }),
+    }),
+    createAdmin: builder.mutation({
+      query: (body) => ({
+        url: "/users/create-admin",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useCreateStudentMutation, useGetAllStudentQuery } =
+export const { useCreateStudentMutation, useGetAllStudentQuery, useCreateAdminMutation, useCreateFacultyMutation } =
   userManagementApi;

@@ -5,54 +5,40 @@ import { Button, Col, Divider, Form, Input, Row } from "antd";
 import EduSelect from "../../../components/form/EduSelect";
 import { bloodGroups } from "../../../constant/admin.user";
 import EduDatePicker from "../../../components/form/EduDatePicker";
-import {
-  useGetAllAcademicDepartmentQuery,
-  useGetAllSemestersQuery,
-} from "../../../redux/features/admin/academicManagement.api";
-import { useCreateStudentMutation } from "../../../redux/features/admin/userManagement.api";
+import { useGetAllAcademicDepartmentQuery } from "../../../redux/features/admin/academicManagement.api";
+import { useCreateFacultyMutation } from "../../../redux/features/admin/userManagement.api";
 import { toast } from "sonner";
 
 function CreateFaculty() {
-  const [createStudent, { data: response }] = useCreateStudentMutation();
+  const [createFaculty, { data: response }] = useCreateFacultyMutation();
 
   const {
     data: departments,
     isFetching,
     isLoading,
   } = useGetAllAcademicDepartmentQuery(undefined);
-  const {
-    data: semesters,
-    isFetching: semIsFactching,
-    isLoading: semIsLoading,
-  } = useGetAllSemestersQuery(undefined);
-
   const departmentOption =
     departments?.data.map((item) => ({
       value: item._id,
       label: item.name,
     })) || [];
-  const semesterOption =
-    semesters?.data.map((item) => ({
-      value: item._id,
-      label: `${item.name}-(${item.year})`,
-    })) || [];
-  if (isFetching || semIsFactching) {
+
+  if (isFetching) {
     return <p>Loading...</p>;
   }
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     try {
-      const studentData = {
+      const facultyData = {
         password: "r@n@&@rju",
-        student: data,
+        faculty: data,
       };
       const formData = new FormData();
-      formData.append("data", JSON.stringify(studentData));
+      formData.append("data", JSON.stringify(facultyData));
       formData.append("file", data.profileImg);
-      createStudent(formData);
-      if (response) {
-        toast.success("Create student successfull");
-      } else {
-      }
+      createFaculty(formData);
+      console.log("response", response);
+
+      toast.success("Create faculty successfull");
     } catch (error) {
       toast.error("Something went wrong");
     }
