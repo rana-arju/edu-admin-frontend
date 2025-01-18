@@ -36,7 +36,7 @@ const columns: TableColumnsType<ITableData> = [
     render: (item) => {
       return (
         <Space>
-          <Link to={`/admin/student-data/${item?.key}`}>
+          <Link to={`/admin/faculty-details/${item?.key}`}>
             <Button>Details</Button>
           </Link>
           <Button>Update</Button>

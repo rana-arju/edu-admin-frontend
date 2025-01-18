@@ -82,3 +82,21 @@ export interface IFaculty {
 }
 
 
+export interface IAdmin {
+  _id: string;
+  id: string;
+  user: IUser;
+  designation: string;
+  name: IName;
+  gender: string;
+  dateOfBirth: string;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  blood: string;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImg: string;
+  isDeleted: boolean;
+  fullName: string;
+}
