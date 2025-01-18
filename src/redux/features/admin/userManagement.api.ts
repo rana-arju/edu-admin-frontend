@@ -1,5 +1,5 @@
 import { IQueryParam, IResponseRedux } from "../../../types";
-import { IStudent } from "../../../types/userManagement.type";
+import { IFaculty, IStudent } from "../../../types/userManagement.type";
 import { baseApi } from "../../api/baseApi";
 
 const userManagementApi = baseApi.injectEndpoints({
@@ -46,8 +46,29 @@ const userManagementApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+    getAllFaculty: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: IQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+        return {
+          url: "/faculties",
+          method: "GET",
+          params,
+        };
+      },
+      transformResponse: (response: IResponseRedux<IFaculty[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
   }),
 });
 
-export const { useCreateStudentMutation, useGetAllStudentQuery, useCreateAdminMutation, useCreateFacultyMutation } =
+export const { useCreateStudentMutation, useGetAllStudentQuery, useCreateAdminMutation, useCreateFacultyMutation, useGetAllFacultyQuery } =
   userManagementApi;

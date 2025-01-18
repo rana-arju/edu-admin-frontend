@@ -60,3 +60,25 @@ export interface ILocalGuardian {
   address: string;
   _id: string;
 }
+export interface IFaculty {
+  _id: string;
+  id: string;
+  user: string;
+  designation: string;
+  name: IName;
+  gender: string;
+  dateOfBirth: string;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  blood: string;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImg: string;
+  academicDepartment: IAcademicDepartment;
+  academicFaculty: IAcademicFaculty;
+  isDeleted: boolean;
+  fullName: string;
+}
+
+
