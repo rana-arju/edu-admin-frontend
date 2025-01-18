@@ -9,7 +9,7 @@ import { useCreateAdminMutation } from "../../../redux/features/admin/userManage
 import { toast } from "sonner";
 
 function CreateAdmin() {
-  const [createAdmin, { data: response }] = useCreateAdminMutation();
+  const [createAdmin] = useCreateAdminMutation();
 
 
 

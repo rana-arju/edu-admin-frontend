@@ -1,4 +1,4 @@
-import { Button, Pagination, Space, Table } from "antd";
+import { Pagination, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { IQueryParam, IStudent } from "../../../types";

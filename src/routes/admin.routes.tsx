@@ -15,8 +15,9 @@ import FacultyDataTable from "../pages/admin/userManagement/FacultyDataTable";
 import FacultyDetails from "../pages/admin/userManagement/FacultyDetails";
 import StudentDataTable from "../pages/admin/userManagement/StudentDataTable";
 import StudentDetails from "../pages/admin/userManagement/StudentDetails";
+import { IUserPaths } from "../types";
 
-export const adminPath = [
+export const adminPath: IUserPaths[] = [
   {
     name: "Dashboard",
     path: "dashboard",
@@ -60,7 +61,6 @@ export const adminPath = [
   },
   {
     name: "User Management",
-
     children: [
       {
         name: "Create Student",

@@ -1,13 +1,10 @@
-import { Button, Modal, Pagination, Select, Space, Table } from "antd";
+import {  Pagination,  Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { IAdmin, IQueryParam } from "../../../types";
-import { Link } from "react-router-dom";
 import {
   useGetAllAdminQuery,
-  useStatusUpdateMutation,
 } from "../../../redux/features/admin/userManagement.api";
-import { EditTwoTone, ExportOutlined, ThunderboltOutlined } from "@ant-design/icons";
 import { AdminActions } from "../../../components/actions/AdminActions";
 
 type ITableData = Pick<IAdmin, "fullName" | "id" | "email" | "contactNo" | "user">;
