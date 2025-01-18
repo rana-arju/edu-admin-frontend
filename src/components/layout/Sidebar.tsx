@@ -11,6 +11,7 @@ const userRole = {
   ADMIN: "admin",
   FACULTY: "faculty",
   STUDENT: "student",
+  SUPERADMIN: "superAdmin"
 };
 function Sidebar() {
   const user = useAppSelector(selectCurrentUser);
@@ -19,6 +20,9 @@ function Sidebar() {
   switch (role) {
     case userRole.ADMIN:
       sidebarItems = sidebarItemsGenerator(adminPath, userRole.ADMIN);
+      break; 
+    case userRole.SUPERADMIN:
+      sidebarItems = sidebarItemsGenerator(adminPath, userRole.SUPERADMIN);
       break;
     case userRole.FACULTY:
       sidebarItems = sidebarItemsGenerator(facultyPaths, userRole.FACULTY);

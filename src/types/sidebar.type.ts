@@ -15,4 +15,4 @@ export type ISidebarItem = {
   key: string;
   label: ReactNode;
   children?: ISidebarItem[];
-} | undefined;
+} ;

@@ -22,6 +22,11 @@ const router = createBrowserRouter([
     children: routesGenerator(adminPath),
   },
   {
+    path: "/superAdmin",
+    element: <App />,
+    children: routesGenerator(adminPath),
+  },
+  {
     path: "/faculty",
     element: <App />,
     children: routesGenerator(facultyPaths),

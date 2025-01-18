@@ -5,11 +5,11 @@ import { Button, Col, Divider, Form, Input, Row } from "antd";
 import EduSelect from "../../../components/form/EduSelect";
 import { bloodGroups } from "../../../constant/admin.user";
 import EduDatePicker from "../../../components/form/EduDatePicker";
-import { useCreateFacultyMutation } from "../../../redux/features/admin/userManagement.api";
+import { useCreateAdminMutation } from "../../../redux/features/admin/userManagement.api";
 import { toast } from "sonner";
 
 function CreateAdmin() {
-  const [createAdmin, { data: response }] = useCreateFacultyMutation();
+  const [createAdmin, { data: response }] = useCreateAdminMutation();
 
 
 
@@ -44,7 +44,6 @@ function CreateAdmin() {
     blood: "O+",
     presentAddress: "123 Main Street, Springfield",
     permanentAddress: "456 Elm Street, Springfield",
-    profileImg: "https://example.com/profiles/johndoe.jpg",
   };
   //const [createSudent] = useCreateStudentMutation(studentData);
 
