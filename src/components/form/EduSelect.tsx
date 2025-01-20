@@ -5,6 +5,7 @@ type ISelectProps = {
   placeholder: string;
   name: string;
   disabled?: boolean;
+  mode?: "multiple" | undefined;
   options: { value: string; label: string }[] | undefined;
 };
 function EduSelect({
@@ -13,6 +14,7 @@ function EduSelect({
   name,
   options,
   disabled,
+  mode,
 }: ISelectProps) {
   return (
     <Controller
@@ -20,6 +22,7 @@ function EduSelect({
       render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
+            mode={mode ? mode : undefined}
             disabled={disabled}
             {...field}
             defaultValue={options ? options[0].value : undefined}
