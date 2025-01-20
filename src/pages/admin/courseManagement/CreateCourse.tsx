@@ -28,12 +28,14 @@ function CreateCourse() {
 
     const courseData = {
       ...data,
+      preRequisiteCourses: data?.preRequisiteCourses
+        ? data.preRequisiteCourses?.map((item: any) => ({
+            course: item,
+          }))
+        : [],
       credits: Number(data.credits),
       code: Number(data.code),
     };
-
-    console.log(courseData);
-
     const toastId = toast.loading("New course creating...");
     try {
       const res = (await createCourse(courseData)) as ISingleResponse;
