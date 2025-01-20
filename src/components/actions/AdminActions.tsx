@@ -27,7 +27,6 @@ export const AdminActions = ({ item, url }: AdminActionsProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [status, setStatus] = useState(item?.user?.status);
   const [statusUpdate] = useStatusUpdateMutation();
-  console.log("item", item);
 
   const showModal = () => {
     setIsModalOpen(true);

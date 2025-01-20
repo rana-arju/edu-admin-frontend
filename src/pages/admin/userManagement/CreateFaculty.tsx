@@ -10,7 +10,7 @@ import { useCreateFacultyMutation } from "../../../redux/features/admin/userMana
 import { toast } from "sonner";
 
 function CreateFaculty() {
-  const [createFaculty, { data: response }] = useCreateFacultyMutation();
+  const [createFaculty] = useCreateFacultyMutation();
 
   const {
     data: departments,
@@ -36,7 +36,6 @@ function CreateFaculty() {
       formData.append("data", JSON.stringify(facultyData));
       formData.append("file", data.profileImg);
       createFaculty(formData);
-      console.log("response", response);
 
       toast.success("Create faculty successfull");
     } catch (error) {

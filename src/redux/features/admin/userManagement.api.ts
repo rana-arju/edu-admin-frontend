@@ -77,7 +77,6 @@ const userManagementApi = baseApi.injectEndpoints({
     }),
     statusUpdate: builder.mutation({
       query: (body) => {
-        console.log(body);
 
         return {
           url: `/users/change-status/${body.id}`,

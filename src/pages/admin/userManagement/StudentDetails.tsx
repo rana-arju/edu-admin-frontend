@@ -11,7 +11,6 @@ function StudentDetails() {
   if (isFetching || isLoading) {
     return <p>Loading...</p>;
   }
-  console.log(student);
 
   return <div>StudentDetails of ==== {student.data.fullName}</div>;
 }
