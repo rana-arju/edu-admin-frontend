@@ -10,6 +10,7 @@ const courseManagementApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ['semester']
     }),
     getRegisteredSemester: builder.query({
       query: () => {
@@ -18,14 +19,27 @@ const courseManagementApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["semester"],
       transformResponse: (response: IResponseRedux<ISemesterRegistered[]>) => {
         return {
           data: response.data,
           meta: response.meta,
         };
       },
+
+    }),
+    courseStatusUpdate: builder.mutation({
+      query: (body) => {
+        
+        return {
+          url: `/semester-registrations/${body.id}`,
+          method: "PATCH",
+          body: { status: body.data },
+        };
+      },
+      invalidatesTags: ["semester"]
     }),
   }),
 });
 
-export const {useSemesterRegistrationMutation, useGetRegisteredSemesterQuery} = courseManagementApi
+export const {useSemesterRegistrationMutation, useGetRegisteredSemesterQuery, useCourseStatusUpdateMutation} = courseManagementApi

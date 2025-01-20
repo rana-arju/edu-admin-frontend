@@ -1,61 +1,114 @@
-import { Button, Table } from "antd";
+import { Button, Dropdown, Table, Tag } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
-import { IQueryParam } from "../../../types";
-import { useGetRegisteredSemesterQuery } from "../../../redux/features/admin/courseManagement.api";
+import { ISingleResponse } from "../../../types";
+import {
+  useCourseStatusUpdateMutation,
+  useGetRegisteredSemesterQuery,
+} from "../../../redux/features/admin/courseManagement.api";
 import { ISemesterRegistered } from "../../../types/courseManagement.type";
 import moment from "moment";
+import { toast } from "sonner";
 
 type ITableData = Pick<
   ISemesterRegistered,
   "status" | "startDate" | "endDate" | "academicSemester"
 >;
-const columns: TableColumnsType<ITableData> = [
-  {
-    title: "Name",
-    dataIndex: "name",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-  },
 
+const items = [
   {
-    title: "Start Date",
-    dataIndex: "startDate",
-    defaultSortOrder: "descend",
-    //sorter: (a, b) => a.year - b.year,
+    label: "Upcomming",
+    key: "UPCOMING",
   },
   {
-    title: "End Date",
-    dataIndex: "endDate",
+    label: "On-going",
+    key: "ONGOING",
   },
   {
-    title: "Min credits",
-    dataIndex: "minCredit",
-  },
-  {
-    title: "Max credits",
-    dataIndex: "maxCredit",
-  },
-  {
-    title: "Actions",
-    dataIndex: "X",
-    render: () => {
-      return (
-        <div>
-          <Button>Update</Button>
-        </div>
-      );
-    },
+    label: "Ended",
+    key: "ENDED",
   },
 ];
 
 function RegisteredSemester() {
-  const [params, setParams] = useState<IQueryParam[] | undefined>([]);
+  const [courseStatusUpdate] = useCourseStatusUpdateMutation();
+  const [semesterId, setSemesterId] = useState("");
   const { data: semesterData, isFetching } =
-    useGetRegisteredSemesterQuery(params);
+    useGetRegisteredSemesterQuery(undefined);
+  const handleStatusUpdate = async (data: any) => {
+    const updateData = {
+      id: semesterId,
+      data: data.key,
+    };
 
+    const toastId = toast.loading("Status updating...");
+
+    try {
+      const res = (await courseStatusUpdate(updateData)) as ISingleResponse;
+      if (res.error) {
+        toast.error(res.error?.data.message, { id: toastId });
+      } else {
+        toast.success(res?.data?.message, { id: toastId });
+      }
+    } catch (error) {
+      toast.error("Something went wrong!", { id: toastId });
+    }
+  };
+  const menuProps = {
+    items,
+    onClick: handleStatusUpdate,
+  };
+  const columns: TableColumnsType<ITableData> = [
+    {
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      render: (item) => {
+        let color;
+        if (item == "UPCOMING") {
+          color = "blue";
+        } else if (item == "ONGOING") {
+          color = "green";
+        } else {
+          color = "red";
+        }
+        return <Tag color={color}>{item}</Tag>;
+      },
+    },
+
+    {
+      title: "Start Date",
+      dataIndex: "startDate",
+      defaultSortOrder: "descend",
+      //sorter: (a, b) => a.year - b.year,
+    },
+    {
+      title: "End Date",
+      dataIndex: "endDate",
+    },
+    {
+      title: "Min credits",
+      dataIndex: "minCredit",
+    },
+    {
+      title: "Max credits",
+      dataIndex: "maxCredit",
+    },
+    {
+      title: "Actions",
+      key: "x",
+      render: (item) => {
+        return (
+          <Dropdown menu={menuProps} trigger={["click"]}>
+            <Button onClick={() => setSemesterId(item.key)}>Update</Button>
+          </Dropdown>
+        );
+      },
+    },
+  ];
   const tableData = semesterData?.data?.map(
     ({
       _id,
@@ -78,18 +131,10 @@ function RegisteredSemester() {
   );
   const onChange: TableProps<ITableData>["onChange"] = (
     _pagination,
-    filters,
+    _filters,
     _sorter,
-    extra
-  ) => {
-    if (extra.action === "filter") {
-      const queryParams: IQueryParam[] = [];
-      filters.name?.forEach((item) =>
-        queryParams.push({ name: "name", value: item })
-      );
-      setParams(queryParams);
-    }
-  };
+    _extra
+  ) => {};
 
   return (
     <Table<ITableData>
