@@ -39,7 +39,6 @@ function CreateCourse() {
     const toastId = toast.loading("New course creating...");
     try {
       const res = (await createCourse(courseData)) as ISingleResponse;
-      console.log("res", res);
 
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });

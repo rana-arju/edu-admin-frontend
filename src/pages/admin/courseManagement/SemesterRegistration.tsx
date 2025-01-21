@@ -37,7 +37,6 @@ function SemesterRegistration() {
     try {
       // toast.loading("New semester registration....");
       const res = (await semesterRegistration(semesterData)) as ISingleResponse;
-      console.log("res", res);
 
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
