@@ -14,8 +14,8 @@ function Login() {
   const dispatch = useAppDispatch();
   const [login] = useLoginMutation();
   const defaultValues = {
-    id: "2024010005",
-    password: "student123",
+    id: "F-0001",
+    password: "faculty12345",
   };
   const onSubmit = async (values: FieldValues) => {
     const userInfo = {

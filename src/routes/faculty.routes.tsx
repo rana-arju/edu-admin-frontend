@@ -1,22 +1,20 @@
 import FacultyDashboard from "../pages/faculty/FacultyDashboard";
-import OfferedCourse from "../pages/faculty/OfferedCourse";
+import MyCourses from "../pages/faculty/MyCourses";
+import MyStudent from "../pages/faculty/MyStudent";
 
 export const facultyPaths = [
   {
     name: "Dashboard",
-    path: "dashboardd",
+    path: "dashboard",
     element: <FacultyDashboard />,
   },
   {
-    name: "Faculty Management",
-
-    children: [
-      {
-        name: "Offered Courses",
-        path: "offered-course",
-        element: <OfferedCourse />,
-      }
-      
-    ],
+    name: "My Courses",
+    path: "my-courses",
+    element: <MyCourses />,
+  },
+  {
+    path: "courses/:registerSemesterId/:courseId",
+    element: <MyStudent />,
   },
 ];
