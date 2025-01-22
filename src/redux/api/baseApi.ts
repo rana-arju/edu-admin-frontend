@@ -11,7 +11,7 @@ import { logout, setUser } from "../features/auth/authSlice";
 import { toast } from "sonner";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:5000/api/v1",
+  baseUrl: "https://eduadmin.vercel.app/api/v1",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -27,6 +27,8 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   BaseQueryApi,
   DefinitionType
 > = async (args, api, extraOption): Promise<any> => {
+
+  
   let result = await baseQuery(args, api, extraOption);
   if (result.error?.status === 403) {
     const errorData = result.error?.data as { message: string };
@@ -34,10 +36,13 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   }
   if (result.error?.status === 401) {
     ///send refresh token
-    const res = await fetch("http://localhost:5000/api/v1/auth/refresh-token", {
-      method: "POST",
-      credentials: "include",
-    });
+    const res = await fetch(
+      "https://eduadmin.vercel.app/api/v1/auth/refresh-token",
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
     const data = await res.json();
     if (data?.data?.accessToken) {
       const user = (api.getState() as RootState).auth.user;
