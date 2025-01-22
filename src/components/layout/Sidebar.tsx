@@ -5,22 +5,31 @@ import { adminPath } from "../../routes/admin.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
 import { studentPath } from "../../routes/student.routes";
 import { useAppSelector } from "../../redux/hook";
-import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import {
+  IUser,
+  useCurrentToekn,
+} from "../../redux/features/auth/authSlice";
+import { verifyToekn } from "../../utils/verifyToken";
 const { Sider } = Layout;
 const userRole = {
   ADMIN: "admin",
   FACULTY: "faculty",
   STUDENT: "student",
-  SUPERADMIN: "superAdmin"
+  SUPERADMIN: "superAdmin",
 };
 function Sidebar() {
-  const user = useAppSelector(selectCurrentUser);
-  const role = user?.role;
+  const token = useAppSelector(useCurrentToekn);
+  let user;
+  if (token) {
+    user = verifyToekn(token);
+  }
+  const role = (user as IUser)?.role;
   let sidebarItems;
+
   switch (role) {
     case userRole.ADMIN:
       sidebarItems = sidebarItemsGenerator(adminPath, userRole.ADMIN);
-      break; 
+      break;
     case userRole.SUPERADMIN:
       sidebarItems = sidebarItemsGenerator(adminPath, userRole.SUPERADMIN);
       break;
@@ -57,7 +66,7 @@ function Sidebar() {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          items ={sidebarItems}
+          items={sidebarItems}
         />
       </div>
     </Sider>

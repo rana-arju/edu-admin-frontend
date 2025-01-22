@@ -1,4 +1,5 @@
-import { IAcademicSemester } from "./academicManagement.type";
+import { IAcademicDepartment, IAcademicFaculty, IAcademicSemester } from "./academicManagement.type";
+import { IFaculty } from "./userManagement.type";
 
 export type ISemesterRegistered = {
   _id: string;
@@ -42,4 +43,23 @@ export type ICourse = {
   updatedAt: string;
   __v: number;
 }
+
+export type IOfferedCourse = {
+  _id: string;
+  semesterRegistration: ISemesterRegistered;
+  academicSemester: IAcademicSemester;
+  academicFaculty: IAcademicFaculty;
+  academicDepartment: IAcademicDepartment;
+  course: ICourse;
+  faculty: IFaculty;
+  maxCapacity: number;
+  section: number;
+  days: string[];
+  startTime: string;
+  endTime: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
 

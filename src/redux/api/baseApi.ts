@@ -8,6 +8,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 import { logout, setUser } from "../features/auth/authSlice";
+import { toast } from "sonner";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",
@@ -27,7 +28,10 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   DefinitionType
 > = async (args, api, extraOption): Promise<any> => {
   let result = await baseQuery(args, api, extraOption);
-
+  if (result.error?.status === 403) {
+    const errorData = result.error?.data as { message: string };
+    toast.error(errorData.message);
+  }
   if (result.error?.status === 401) {
     ///send refresh token
     const res = await fetch("http://localhost:5000/api/v1/auth/refresh-token", {
@@ -47,7 +51,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 };
 export const baseApi = createApi({
   reducerPath: "baseApi",
-  tagTypes: ["semester", "course"],
+  tagTypes: ["semester", "course", "offeredCourse"],
   baseQuery: baseQueryWithRefreshToken,
   endpoints: () => ({}),
 });

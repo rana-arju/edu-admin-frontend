@@ -108,8 +108,22 @@ const AssignFaculty = (data: any) => {
       <Modal
         title={`Status: `}
         open={isModalOpen}
-        onOk={onSubmit}
+        //onOk={onSubmit}
         onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Back
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            //loading={loading}
+            onClick={onSubmit}
+          >
+            Assign Faculty
+          </Button>,
+          
+        ]}
       >
         <p>Assign a faculty:</p>
         <Select
